@@ -12,6 +12,8 @@ items = {
     "apple": Item("apple", "delicious green apple"),
     "chest": Item("chest", "golden chest with unknown treasure inside"),
     "key": Item("key", "rusty iron key"),
+    "bomb": Item("bomb", "dangerously explosive bomb"),
+    "cheese": Item('cheese', "moldy piece of cheese")
 }
 
 # Declare all the rooms
@@ -28,11 +30,11 @@ Ahead to the north, a light flickers in the distance,
 but there is no way across the chasm.""", [items["potion"], items["chest"]]),
 
     "narrow":   Room("Narrow Passage", """The narrow passage bends here from west to north.
-    The smell of gold permeates the air.""", [items["sword"], items["apple"]]),
+    The smell of gold permeates the air.""", [items["bomb"], items["apple"]]),
 
     "treasure": Room("Treasure Chamber", """You've found the long-lost treasure chamber! 
     Sadly, it has already been completely emptied by earlier adventurers. 
-    The only exit is to the south.""", [items["torch"], items["key"]]),
+    The only exit is to the south.""", [items["cheese"], items["key"]]),
 }
 
 
@@ -111,6 +113,8 @@ while choice != 'q':
     if choice_len == 2:
         moved = False
         if choice_arr[0] in ['get', 'take']:
+            # If the item is in the items list and available in the room,
+            # Let player pick up item and remove it from the room
             if choice_arr[1] in items.keys() and items[choice_arr[1]] in player.room.items:
                 player.take_item(items[choice_arr[1]])
                 player.room.remove_item(items[choice_arr[1]])
