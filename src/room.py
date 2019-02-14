@@ -6,10 +6,10 @@ class Room:
 
     def print_items(self):
         if len(self.items) > 0:
-            room_items = ", ".join([item for item in self.items])
+            room_items = ", ".join([str(item) for item in self.items])
         else:
             room_items = "nothing"
-            print(f"You look around the {self.name} and see: {room_items}.")
+        print(f"You look around the room and find: {room_items}.")
 
     def remove_item(self, item):
         self.items = list(

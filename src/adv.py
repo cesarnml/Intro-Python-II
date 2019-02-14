@@ -54,6 +54,7 @@ room['treasure'].s_to = room['narrow']
 # Make a new player object that is currently in the 'outside' room.
 name = input('Input player name: ')
 player = Player(name, room["outside"])
+print("\n===============")
 print(f"Welcome, {player.name}!")
 # Write a loop that:
 #
@@ -69,11 +70,12 @@ print(f"Welcome, {player.name}!")
 user_input = None
 
 while user_input is not 'q':
-    print("=======\n")
+    print("===============\n")
     print(f"{player.name} enters \"{player.room.name}\"")
     print(f"{player.room.desc}\n")
+    player.room.print_items()
     user_input = input(
-        "Move (n, s, w, e) or Take Action (get/take/drop/inv): ")
+        "\nMove (n, s, w, e) or Take Action (get/take/drop/inv): ")
 
 # Movement Logic
 
