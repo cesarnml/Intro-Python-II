@@ -117,7 +117,12 @@ while choice != 'q':
             else:
                 print(f"That item isn't available to pick up.")
         if choice_arr[0] == 'drop':
-            print('trying to drop something')
+            if items[choice_arr[1]] in player.items:
+                player.drop_item(items[choice_arr[1]])
+                player.room.add_item(items[choice_arr[1]])
+                print(f"{player.name} drops {choice_arr[1]}")
+            else:
+                print(f"You don't have that item.")
 
 
 # Light Source Logic
