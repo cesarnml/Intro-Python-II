@@ -24,7 +24,7 @@ room = {
 passages run north and east.""", [items["torch"], items['shield']]),
 
     "overlook": Room("Grand Overlook", """A steep cliff appears before you, falling
-into the darkness. Ahead to the north, a light flickers in the distance, 
+into the darkness. Ahead to the north, a light flickers in the distance,
 but there is no way across the chasm.""", [items["potion"], items["chest"]]),
 
     "narrow":   Room("Narrow Passage", """The narrow passage bends here from west
@@ -52,9 +52,9 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-name = input('Please input player name: ')
-player = Player(name, room.outside)
-
+name = input('Input player name: ')
+player = Player(name, room["outside"])
+print(f"Welcome, {player.name}!")
 # Write a loop that:
 #
 # * Prints the current room name
@@ -69,18 +69,31 @@ player = Player(name, room.outside)
 user_input = None
 
 while user_input is not 'q':
+    print("\n=======\n")
     print(f"{player.name} enters \"{player.room.name}\"")
     print(f"{player.room.desc}")
     user_input = input(
         "Move (n, s, w, e) or Take Action (get/take/drop/inv): ")
-    if user_input == 'n' and hasattr(room[player.room], 'n_to'):
+
+# Movement Logic
+
+    if user_input == 'n' and hasattr(player.room, 'n_to'):
         print(f"it worked: {user_input}")
-        player.room = room[player.room].n_to
-    elif user_input == 's' and hasattr(room[player.room], 's_to'):
-        player.room = room[player.room].s_to
-    elif user_input == 'e' and hasattr(room[player.room], 'e_to'):
-        player.room = room[player.room].e_to
-    elif user_input == 'w' and hasattr(room[player.room], 'w_to'):
-        player.room = room[player.room].w_to
+        player.room = player.room.n_to
+    elif user_input == 's' and hasattr(player.room, 's_to'):
+        print(f"it worked: {user_input}")
+        player.room = player.room.s_to
+    elif user_input == 'e' and hasattr(player.room, 'e_to'):
+        print(f"it worked: {user_input}")
+        player.room = player.room.e_to
+    elif user_input == 'w' and hasattr(player.room, 'w_to'):
+        print(f"it worked: {user_input}")
+        player.room = player.room.w_to
     else:
         print(f"Can't move in that direction.")
+
+
+# Item Logic
+
+
+# Light Source Logic
