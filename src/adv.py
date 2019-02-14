@@ -104,25 +104,26 @@ while choice != 'q':
         else:
             moved = False
             print(
-                f"\n!*****!\nYou can't move in that direction. Please select another action.\n!*****!\n")
+                f"\n!*****!\nYou can't move in that direction. Please select again.\n!*****!\n")
 
 
 # Player Action Logic (expects 2 arguments)
     if choice_len == 2:
+        moved = False
         if choice_arr[0] in ['get', 'take']:
-            if items[choice_arr[1]] in player.room.items:
+            if choice_arr[1] in items.keys() and items[choice_arr[1]] in player.room.items:
                 player.take_item(items[choice_arr[1]])
                 player.room.remove_item(items[choice_arr[1]])
-                print(f"{player.name} picks up a {choice_arr[1]}!")
+                print(f"{player.name} picks up a {choice_arr[1]}!\n")
             else:
-                print(f"That item isn't available to pick up.")
+                print(f"That item isn't available to pick up.\n")
         if choice_arr[0] == 'drop':
-            if items[choice_arr[1]] in player.items:
+            if choice_arr[1] in items.keys()  and items[choice_arr[1]] in player.items:
                 player.drop_item(items[choice_arr[1]])
                 player.room.add_item(items[choice_arr[1]])
-                print(f"{player.name} drops {choice_arr[1]}")
+                print(f"{player.name} drops {choice_arr[1]}.\n")
             else:
-                print(f"You don't have that item.")
+                print(f"You don't have that item.\n")
 
 
 # Light Source Logic
