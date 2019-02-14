@@ -111,21 +111,23 @@ while choice != 'q':
 
 # Player Action Logic (expects 2 arguments)
     if choice_len == 2:
+        action = choice_arr[0]
+        item = choice_arr[1]
         moved = False
-        if choice_arr[0] in ['get', 'take']:
+        if action in ['get', 'take']:
             # If the item is in the items list and available in the room,
             # Let player pick up item and remove it from the room
-            if choice_arr[1] in items.keys() and items[choice_arr[1]] in player.room.items:
-                player.take_item(items[choice_arr[1]])
-                player.room.remove_item(items[choice_arr[1]])
-                print(f"{player.name} picks up a {choice_arr[1]}!\n")
+            if item in items.keys() and items[item] in player.room.items:
+                player.take_item(items[item])
+                player.room.remove_item(items[item])
+                print(f"{player.name} picks up a {item}!\n")
             else:
                 print(f"That item isn't available to pick up.\n")
-        if choice_arr[0] == 'drop':
-            if choice_arr[1] in items.keys()  and items[choice_arr[1]] in player.items:
-                player.drop_item(items[choice_arr[1]])
-                player.room.add_item(items[choice_arr[1]])
-                print(f"{player.name} drops {choice_arr[1]}.\n")
+        if action == 'drop':
+            if item in items.keys() and items[item] in player.items:
+                player.drop_item(items[item])
+                player.room.add_item(items[item])
+                print(f"{player.name} drops {item}.\n")
             else:
                 print(f"You don't have that item.\n")
 
