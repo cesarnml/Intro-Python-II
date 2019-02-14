@@ -75,20 +75,22 @@ while user_input is not 'q':
     print(f"{player.room.desc}\n")
     player.room.print_items()
     user_input = input(
-        "\nMove (n, s, w, e) or Take Action (get/take/drop/inv): ")
+        "\nMove (n, s, w, e) or Take Action (get/take/drop/inventory): ")
 
 # Movement Logic
-
-    if (user_input == 'n' or user_input == 'N') and hasattr(player.room, 'n_to'):
-        player.room = player.room.n_to
-    elif (user_input == 's' or user_input == 'S') and hasattr(player.room, 's_to'):
-        player.room = player.room.s_to
-    elif (user_input == 'e' or user_input == 'E') and hasattr(player.room, 'e_to'):
-        player.room = player.room.e_to
-    elif (user_input == 'w' or user_input == "W") and hasattr(player.room, 'w_to'):
-        player.room = player.room.w_to
-    else:
-        print(f"Your can't move in that direction. Please select another action.")
+    if len(user_input.split(' ')) == 1:
+        if (user_input == 'n' or user_input == 'N') and hasattr(player.room, 'n_to'):
+            player.room = player.room.n_to
+        elif (user_input == 's' or user_input == 'S') and hasattr(player.room, 's_to'):
+            player.room = player.room.s_to
+        elif (user_input == 'e' or user_input == 'E') and hasattr(player.room, 'e_to'):
+            player.room = player.room.e_to
+        elif (user_input == 'w' or user_input == "W") and hasattr(player.room, 'w_to'):
+            player.room = player.room.w_to
+        elif user_input == 'i' or user_input == 'inv' or user_input == 'inventory':
+            player.check_inventory()
+        else:
+            print(f"Your can't move in that direction. Please select another action.")
 
 
 # Item Logic

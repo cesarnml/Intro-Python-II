@@ -10,10 +10,10 @@ class Player:
 
     def check_inventory(self):
         if len(self.items) > 0:
-            player_items = ", ".join([item for item in self.items])
+            player_items = ", ".join([str(item) for item in self.items])
         else:
             player_items = "nothing"
-        print(f"Your inventory contains: {player_items}.")
+        print(f"\nYour inventory contains: {player_items}.")
 
     def drop_item(self, item):
         self.items = list(
