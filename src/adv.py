@@ -72,7 +72,7 @@ print(f"Welcome, {player.name}!")
 choice = None
 moved = True
 
-while choice != 'q':
+while choice not in ['q', 'quit']:
     if moved:
         print("===============\n")
         print(f"{player.name} enters \"{player.room.name}\"")
@@ -103,6 +103,8 @@ while choice != 'q':
         elif choice in ['i', 'inv', 'inventory']:
             moved = False
             player.check_inventory()
+        elif choice in ['q', 'quit']:
+            print(f"\nThanks for playing. Quitting Game.\n")
         else:
             moved = False
             print(
