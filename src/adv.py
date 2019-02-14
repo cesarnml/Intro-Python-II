@@ -18,21 +18,21 @@ items = {
 
 room = {
     "outside":  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons", [items["sword"], items['club']]),
+                     "North of you, the cave mount beckons",
+                     [items["sword"], items['club']]),
 
-    "foyer":    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east.""", [items["torch"], items['shield']]),
+    "foyer":    Room("Foyer", """Dim light filters in from the south.\nDusty passages run north and east.""", [items["torch"], items['shield']]),
 
-    "overlook": Room("Grand Overlook", """A steep cliff appears before you, falling
-into the darkness. Ahead to the north, a light flickers in the distance,
+    "overlook": Room("Grand Overlook", """A steep cliff appears before you, falling into the darkness.
+Ahead to the north, a light flickers in the distance, 
 but there is no way across the chasm.""", [items["potion"], items["chest"]]),
 
-    "narrow":   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air.""", [items["sword"], items["apple"]]),
+    "narrow":   Room("Narrow Passage", """The narrow passage bends here from west to north.
+    The smell of gold permeates the air.""", [items["sword"], items["apple"]]),
 
-    "treasure": Room("Treasure Chamber", """You've found the long-lost treasure
-chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south.""", [items["torch"], items["key"]]),
+    "treasure": Room("Treasure Chamber", """You've found the long-lost treasure chamber! 
+    Sadly, it has already been completely emptied by earlier adventurers. 
+    The only exit is to the south.""", [items["torch"], items["key"]]),
 }
 
 
@@ -67,33 +67,55 @@ print(f"Welcome, {player.name}!")
 #
 # If the user enters "q", quit the game.
 
-user_input = None
+choice = None
+moved = True
 
-while user_input is not 'q':
-    print("===============\n")
-    print(f"{player.name} enters \"{player.room.name}\"")
-    print(f"{player.room.desc}\n")
+while choice != 'q':
+    if (choice in ['n', 's', 'w', 'e', None] and moved):
+        print("===============\n")
+        print(f"{player.name} enters \"{player.room.name}\"")
+        print(f"{player.room.desc}\n")
+
     player.room.print_items()
-    user_input = input(
-        "\nMove (n, s, w, e) or Take Action (get/take/drop/inventory): ")
 
-# Movement Logic
-    if len(user_input.split(' ')) == 1:
-        if (user_input == 'n' or user_input == 'N') and hasattr(player.room, 'n_to'):
+# Player input
+    choice = input(
+        "\nCheck Inventory (i/inv), Move (n, s, w, e) or Take Action (get/take/drop): ")
+    choice_arr = choice.split(' ')
+    choice_len = len(choice_arr)
+# Movement and Player Inventory Logic (expects 1 argument)
+    if choice_len == 1:
+        if (choice in ['n', 'N']) and hasattr(player.room, 'n_to'):
+            moved = True
             player.room = player.room.n_to
-        elif (user_input == 's' or user_input == 'S') and hasattr(player.room, 's_to'):
+        elif (choice in ['s', 'S']) and hasattr(player.room, 's_to'):
+            moved = True
             player.room = player.room.s_to
-        elif (user_input == 'e' or user_input == 'E') and hasattr(player.room, 'e_to'):
+        elif (choice in ['e', 'E']) and hasattr(player.room, 'e_to'):
+            moved = True
             player.room = player.room.e_to
-        elif (user_input == 'w' or user_input == "W") and hasattr(player.room, 'w_to'):
+        elif (choice in ['w', 'W']) and hasattr(player.room, 'w_to'):
+            moved = True
             player.room = player.room.w_to
-        elif user_input == 'i' or user_input == 'inv' or user_input == 'inventory':
+        elif choice == 'i' or choice == 'inv' or choice == 'inventory':
+            moved = False
             player.check_inventory()
         else:
-            print(f"Your can't move in that direction. Please select another action.")
+            moved = False
+            print(
+                f"\n!*****!\nYou can't move in that direction. Please select another action.\n!*****!\n")
 
 
-# Item Logic
+# Player Action Logic (expects 2 arguments)
+    if choice_len == 2:
+        if choice_arr[0] in ['get', 'take']:
+            if items[choice_arr[1]] in player.room.items:
+                player.take_item(items[choice_arr[1]])
+                print(f"{player.name} picks up a {choice_arr[1]}!")
+            else:
+                print(f"That item isn't available to pick up.")
+        if choice_arr[0] == 'drop':
+            print('trying to drop something')
 
 
 # Light Source Logic
