@@ -69,28 +69,24 @@ print(f"Welcome, {player.name}!")
 user_input = None
 
 while user_input is not 'q':
-    print("\n=======\n")
+    print("=======\n")
     print(f"{player.name} enters \"{player.room.name}\"")
-    print(f"{player.room.desc}")
+    print(f"{player.room.desc}\n")
     user_input = input(
         "Move (n, s, w, e) or Take Action (get/take/drop/inv): ")
 
 # Movement Logic
 
-    if user_input == 'n' and hasattr(player.room, 'n_to'):
-        print(f"it worked: {user_input}")
+    if (user_input == 'n' or user_input == 'N') and hasattr(player.room, 'n_to'):
         player.room = player.room.n_to
-    elif user_input == 's' and hasattr(player.room, 's_to'):
-        print(f"it worked: {user_input}")
+    elif (user_input == 's' or user_input == 'S') and hasattr(player.room, 's_to'):
         player.room = player.room.s_to
-    elif user_input == 'e' and hasattr(player.room, 'e_to'):
-        print(f"it worked: {user_input}")
+    elif (user_input == 'e' or user_input == 'E') and hasattr(player.room, 'e_to'):
         player.room = player.room.e_to
-    elif user_input == 'w' and hasattr(player.room, 'w_to'):
-        print(f"it worked: {user_input}")
+    elif (user_input == 'w' or user_input == "W") and hasattr(player.room, 'w_to'):
         player.room = player.room.w_to
     else:
-        print(f"Can't move in that direction.")
+        print(f"Your can't move in that direction. Please select another action.")
 
 
 # Item Logic
