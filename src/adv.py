@@ -122,6 +122,8 @@ while choice not in ['q', 'quit']:
             else:
                 print(f"A {item} isn't available to pick up.\n")
         if action == 'drop':
+            # drop logic is analoges to get/take logic: 
+            # check if item is in items and item on player before dropping
             if item in items.keys() and items[item] in player.items:
                 player.drop_item(items[item])
                 player.room.add_item(items[item])
