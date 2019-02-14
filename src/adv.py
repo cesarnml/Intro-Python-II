@@ -71,33 +71,34 @@ choice = None
 moved = True
 
 while choice != 'q':
-    if (choice in ['n', 's', 'w', 'e', None] and moved):
+    if moved:
         print("===============\n")
         print(f"{player.name} enters \"{player.room.name}\"")
         print(f"{player.room.desc}\n")
 
     player.room.print_items()
 
-# Player input
+# Player input (parsing of choice into an array of word strings)
     choice = input(
         "\nCheck Inventory (i/inv), Move (n, s, w, e) or Take Action (get/take/drop): ")
     choice_arr = choice.split(' ')
     choice_len = len(choice_arr)
+
 # Movement and Player Inventory Logic (expects 1 argument)
     if choice_len == 1:
-        if (choice in ['n', 'N']) and hasattr(player.room, 'n_to'):
+        if choice in ['n', 'N'] and hasattr(player.room, 'n_to'):
             moved = True
             player.room = player.room.n_to
-        elif (choice in ['s', 'S']) and hasattr(player.room, 's_to'):
+        elif choice in ['s', 'S'] and hasattr(player.room, 's_to'):
             moved = True
             player.room = player.room.s_to
-        elif (choice in ['e', 'E']) and hasattr(player.room, 'e_to'):
+        elif choice in ['e', 'E'] and hasattr(player.room, 'e_to'):
             moved = True
             player.room = player.room.e_to
-        elif (choice in ['w', 'W']) and hasattr(player.room, 'w_to'):
+        elif choice in ['w', 'W'] and hasattr(player.room, 'w_to'):
             moved = True
             player.room = player.room.w_to
-        elif choice == 'i' or choice == 'inv' or choice == 'inventory':
+        elif choice in ['i', 'inv', 'inventory']:
             moved = False
             player.check_inventory()
         else:
@@ -111,6 +112,7 @@ while choice != 'q':
         if choice_arr[0] in ['get', 'take']:
             if items[choice_arr[1]] in player.room.items:
                 player.take_item(items[choice_arr[1]])
+                player.room.remove_item(items[choice_arr[1]])
                 print(f"{player.name} picks up a {choice_arr[1]}!")
             else:
                 print(f"That item isn't available to pick up.")
