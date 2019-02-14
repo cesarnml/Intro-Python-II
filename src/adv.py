@@ -122,14 +122,14 @@ while choice != 'q':
                 player.room.remove_item(items[item])
                 print(f"{player.name} picks up a {item}!\n")
             else:
-                print(f"That item isn't available to pick up.\n")
+                print(f"A {item} isn't available to pick up.\n")
         if action == 'drop':
             if item in items.keys() and items[item] in player.items:
                 player.drop_item(items[item])
                 player.room.add_item(items[item])
                 print(f"{player.name} drops {item}.\n")
             else:
-                print(f"You don't have that item.\n")
+                print(f"You don't have a {item} to drop.\n")
 
 
 # Light Source Logic
