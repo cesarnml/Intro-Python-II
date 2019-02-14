@@ -1,8 +1,8 @@
 from room import Room
 from player import Player
 from item import Item
-# Declare all items
 
+# Declare all the items
 items = {
     "sword": Item("sword", "excellent steel blade"),
     "torch": Item("torch", "handheld light source"),
@@ -17,7 +17,6 @@ items = {
 }
 
 # Declare all the rooms
-
 room = {
     "outside":  Room("Outside Cave Entrance",
                      "North of you, the cave mount beckons",
@@ -39,7 +38,6 @@ but there is no way across the chasm.""", [items["potion"], items["chest"]]),
 
 
 # Link rooms together
-
 room['outside'].n_to = room['foyer']
 room['foyer'].s_to = room['outside']
 room['foyer'].n_to = room['overlook']
@@ -53,7 +51,7 @@ room['treasure'].s_to = room['narrow']
 # Main
 #
 
-# Make a new player object that is currently in the 'outside' room.
+# Prompt user for name and locate player "outside"
 name = input('Input player name: ')
 player = Player(name, room["outside"])
 print("\n===============")
@@ -63,21 +61,19 @@ print(f"Welcome, {player.name}!")
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
 
+# Initialize user choice and moved boolean
 choice = None
 moved = True
 
 while choice not in ['q', 'quit']:
+    # Print "Enter room message only on a successful move"
     if moved:
         print("===============\n")
         print(f"{player.name} enters \"{player.room.name}\"")
         print(f"{player.room.desc}\n")
 
+    # Print room inventory on each iteration
     player.room.print_items()
 
 # Player input (parsing of choice into an array of word strings)
@@ -133,5 +129,5 @@ while choice not in ['q', 'quit']:
             else:
                 print(f"You don't have a {item} to drop.\n")
 
-
+# Stretch Logic:
 # Light Source Logic
